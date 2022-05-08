@@ -45,7 +45,7 @@ const UploadResume = () => {
     };
     setLoading(true);
     try {
-      const web3 = await Moralis.enableWeb3();
+      await Moralis.enableWeb3();
       const transaction = await Moralis.executeFunction(options);
       toast.info("Transaction Pending: " + transaction.hash);
       await transaction.wait();
@@ -60,11 +60,12 @@ const UploadResume = () => {
 
   return (
     <Button
-      style={{ color: "white" }}
       onClick={uploadResume}
       disabled={loading}
+      variant="contained"
+      fullWidth
     >
-      {loading ? <CircularProgress color="inherit" /> : "Upload Resume"}
+      {loading ? <CircularProgress color="inherit" /> : "Upload To BlockChain"}
     </Button>
   );
 };

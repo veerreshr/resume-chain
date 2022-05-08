@@ -10,35 +10,12 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useMoralis } from "react-moralis";
-import UploadResume from "./UploadResume";
 import logo from "../assets/resume-chain-logo.png";
 import SearchComponent from "./SearchComponent";
 import { useNavigate } from "react-router-dom";
-
-const pages = ["Products", "Pricing", "Blog"];
+import AuthButton from "./AuthButton";
 
 const NavBarComponent = () => {
-  const { authenticate, isAuthenticated, user, logout } = useMoralis();
-
-  const login = async () => {
-    if (!isAuthenticated) {
-      await authenticate({ signingMessage: "Log into Resume Chain" })
-        .then(function (user) {
-          console.log("logged in user:", user);
-          console.log(user ? user.get("ethAddress") : "no-user");
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      //TODO : Retrieve user data from blockchain and update the state in the store
-    }
-  };
-
-  const logOut = async () => {
-    await logout();
-    console.log("logged out");
-  };
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -51,6 +28,21 @@ const NavBarComponent = () => {
   let navigate = useNavigate();
   const navigateHome = () => {
     navigate("/");
+  };
+
+  const navigateAbout = () => {
+    handleCloseNavMenu();
+    navigate("/");
+  };
+
+  const handleBuild = () => {
+    handleCloseNavMenu();
+    navigate("/build");
+  };
+
+  const handleOrganisation = () => {
+    handleCloseNavMenu();
+    navigate("/organisation");
   };
 
   return (
@@ -107,8 +99,16 @@ const NavBarComponent = () => {
               }}
             >
               <SearchComponent />
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Orgnisations</Typography>
+              <MenuItem onClick={handleBuild}>
+                <Typography textAlign="center">Build</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleOrganisation}>
+                <Typography textAlign="center">Organisations</Typography>
+              </MenuItem>
+              <MenuItem onClick={navigateAbout}>
+                <Typography textAlign="center" sx={{ cursor: "pointer" }}>
+                  About
+                </Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -131,26 +131,27 @@ const NavBarComponent = () => {
               <SearchComponent />
             </Box>
             <Button
-              onClick={handleCloseNavMenu}
+              onClick={handleBuild}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              Orgnisations
+              Build
+            </Button>
+            <Button
+              onClick={handleOrganisation}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Organisations
+            </Button>
+            <Button
+              onClick={navigateAbout}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              About
             </Button>
           </Box>
-          {isAuthenticated ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <UploadResume />
-              <Button variant="contained" color="secondary" onClick={logOut}>
-                Logout : {user.get("ethAddress").substring(0, 10) + "..."}
-              </Button>
-            </Box>
-          ) : (
-            <Box sx={{ flexGrow: 0 }}>
-              <Button variant="contained" color="secondary" onClick={login}>
-                Connect
-              </Button>
-            </Box>
-          )}
+          <Box sx={{ flexGrow: 0 }}>
+            <AuthButton />
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

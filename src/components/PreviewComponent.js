@@ -68,7 +68,8 @@ const Quixote = (props) => {
                       alignItems: "center",
                     }}
                   >
-                    {(item.studyType.length > 0 || item.area.length > 0) && (
+                    {((item.studyType && item.studyType.length > 0) ||
+                      (item.area && item.area.length > 0)) && (
                       <Text style={styles.educationTitle}>
                         {`${item.studyType} ${item.area}`}
                       </Text>
@@ -77,7 +78,7 @@ const Quixote = (props) => {
                       {((item.startDate && item.startDate.length > 0) ||
                         (item.endDate && item.endDate.length > 0)) && (
                         <Text style={styles.dim}>
-                          {item.startDate ? item.startDate : "No Date"} -{" "}
+                          {item.startDate ? item.startDate : "No Date"} -
                           {item.endDate ? item.endDate : "Present"}
                         </Text>
                       )}
@@ -86,7 +87,7 @@ const Quixote = (props) => {
                   <Text style={styles.institution}>{item.institution}</Text>
 
                   <View>
-                    {item.score.length > 0 && (
+                    {item.score && item.score.length > 0 && (
                       <Text style={styles.dim}>Score : {item.score}</Text>
                     )}
                   </View>
@@ -146,7 +147,7 @@ const Quixote = (props) => {
                       {((item.startDate && item.startDate.length > 0) ||
                         (item.endDate && item.endDate.length > 0)) && (
                         <Text style={styles.dim}>
-                          {item.startDate ? item.startDate : "No Date"} -{" "}
+                          {item.startDate ? item.startDate : "No Date"} -
                           {item.endDate ? item.endDate : "Present"}
                         </Text>
                       )}
@@ -222,7 +223,7 @@ const Quixote = (props) => {
                       {((item.startDate && item.startDate.length > 0) ||
                         (item.endDate && item.endDate.length > 0)) && (
                         <Text style={styles.dim}>
-                          {item.startDate ? item.startDate : "No Date"} -{" "}
+                          {item.startDate ? item.startDate : "No Date"} -
                           {item.endDate ? item.endDate : "Present"}
                         </Text>
                       )}
