@@ -8,12 +8,14 @@ import "react-toastify/dist/ReactToastify.css";
 import ResumeViewer from "./screens/ResumeViewer";
 import NotFoundComponent from "./components/NotFoundComponent";
 import Organisation from "./screens/Organisation";
+import AlertInfoComponent from "./components/AlertInfoComponent";
 
 function App() {
   return (
     <>
       <ToastContainer />
       <NavBarComponent />
+      <AlertInfoComponent/>
       <Routes>
         <Route path="/build" element={<ResumeBuilder />} />
         <Route path="/" element={<About />} />
